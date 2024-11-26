@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <textarea placeholder="Entrer votre texte"></textarea>
+      <br />
+      <button onclick="analyserTexte()">Analyser le texte</button>
+      <button onclick="encrypterTexte()">Encrypter le texte</button>
+      <button onclick="encoderTexte()">Encrypter le texte</button>
+    </form>
+  </body>
+  <script>
+    let texteUsager = "";
+
+    function getStringLength(string) {
+      let count = 0;
+      for (let i = 0; string[i] !== undefined; i++) {
+        count++;
+      }
+      return count;
+    }
+
+    /* Analyser texte */
+    function transfererTexte() {
+      texteUsager = document.querySelector("form textarea").value;
+    }
+
+    function validerTexte() {
+      return getStringLength(texteUsager) == 0;
+    }
+
+    function enleverEspace(chaineTexte) {
+      let chaineTexteTrimDebut = "";
+      let chaineTexteTrimTotale = "";
+
+      let chaineTexteIndex = 0;
+      while (chaineTexte[chaineTexteIndex] === " ") {
+        chaineTexteIndex++;
+      }
+      for (let o = chaineTexteIndex; o < getStringLength(chaineTexte); o++) {
+        chaineTexteTrimDebut += chaineTexte[o];
+      }
+
+      chaineTexteIndex = getStringLength(chaineTexteTrimDebut) - 1;
+      while (chaineTexteTrimDebut[chaineTexteIndex] == " ") {
+        chaineTexteIndex--;
+      }
+
+      for (let z = 0; z < chaineTexteIndex; z++) {
+        chaineTexteTrimTotale += chaineTexteTrimDebut[z];
+      }
+      return chaineTexteTrimTotale;
+    }
+
+    function calculerNombreDeMot(chaineTexte) {
+      chaineTexte = enleverEspace(chaineTexte);
+      let index = 0;
+      let numberOfWord = 0;
+      while (chaineTexte[index] != undefined) {
+        if (
+          chaineTexte[index] === " " &&
+          chaineTexte[index - 1] !== " " &&
+          chaineTexte[index + 1] !== " "
+        )
+          numberOfWord++;
+        index++;
+      }
+      if (getStringLength(chaineTexte) > 0) numberOfWord++; // ex: la_fleur_est : il y a 3 mots, mais seulement deux espaces;
+      return numberOfWord;
+    }
+
+    const analyserTexte = () => {
+      console.log("transf");
+      transfererTexte();
+      validerTexte();
+      enleverEspace(texteUsager);
+      calculerNombreDeMot(texteUsager);
+      caluculerNombreDePhrase(chaineTexte);
+      afficherAnalyse();
+    };
+
+    /* Encrypter texte */
+    const encrypterTexte = () => {
+      console.log("encry");
+      inverserMot(chaineTexte);
+    };
+
+    /* Encoder texte */
+    const encoderTexte = (codeEncryption, chaineTexte) => {
+      console.log("enco");
+    };
+  </script>
+</html>
